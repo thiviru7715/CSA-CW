@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.smartcampus.resource.DiscoveryResource;
+import com.smartcampus.resource.RoomResource;
 
 /**
  * JAX-RS Application configuration class.
@@ -23,6 +24,7 @@ public class SmartCampusApplication extends Application {
 
         // Resource classes
         classes.add(DiscoveryResource.class);
+        classes.add(RoomResource.class);
 
         return classes;
     }
