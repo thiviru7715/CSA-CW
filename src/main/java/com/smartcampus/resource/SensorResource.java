@@ -6,6 +6,7 @@ import com.smartcampus.storage.DataStore;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -97,6 +98,30 @@ public class SensorResource {
         room.addSensorId(sensor.getId());
         
         return Response.status(Response.Status.CREATED).entity(sensor).build();
+    }
+
+    /**
+     * Update an existing sensor.
+     */
+    @PUT
+    @Path("/{sensorId}")
+    public Response updateSensor(@PathParam("sensorId") String sensorId, Sensor updatedSensor) {
+        Sensor existingSensor = dataStore.getSensor(sensorId);
+        if (existingSensor == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"error\": \"Sensor not found\"}")
+                    .build();
+        }
+
+        existingSensor.setType(updatedSensor.getType());
+        existingSensor.setStatus(updatedSensor.getStatus());
+        existingSensor.setCurrentValue(updatedSensor.getCurrentValue());
+
+        // We do not allow changing the roomId in a simple PUT to avoid complex relinking logic.
+
+        dataStore.addSensor(existingSensor);
+
+        return Response.ok(existingSensor).build();
     }
 
 }
