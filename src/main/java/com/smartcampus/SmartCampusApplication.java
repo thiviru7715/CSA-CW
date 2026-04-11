@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.smartcampus.resource.DiscoveryResource;
 import com.smartcampus.resource.RoomResource;
+import com.smartcampus.resource.SensorResource;
 
 /**
  * JAX-RS Application configuration class.
@@ -25,6 +26,7 @@ public class SmartCampusApplication extends Application {
         // Resource classes
         classes.add(DiscoveryResource.class);
         classes.add(RoomResource.class);
+        classes.add(SensorResource.class);
 
         return classes;
     }
