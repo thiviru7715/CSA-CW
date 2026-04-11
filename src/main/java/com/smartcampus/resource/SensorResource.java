@@ -9,10 +9,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.smartcampus.exception.LinkedResourceNotFoundException;
 import com.smartcampus.model.Room;
@@ -28,11 +30,16 @@ public class SensorResource {
     private final DataStore dataStore = DataStore.getInstance();
 
     /**
-     * Retrieve all sensors.
+     * Retrieve all sensors or filter by type.
      */
     @GET
-    public Response getAllSensors() {
+    public Response getAllSensors(@QueryParam("type") String type) {
         List<Sensor> sensorList = new ArrayList<>(dataStore.getSensors().values());
+        if (type != null && !type.trim().isEmpty()) {
+            sensorList = sensorList.stream()
+                    .filter(s -> type.equalsIgnoreCase(s.getType()))
+                    .collect(Collectors.toList());
+        }
         return Response.ok(sensorList).build();
     }
 
