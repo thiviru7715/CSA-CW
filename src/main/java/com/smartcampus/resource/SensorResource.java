@@ -4,6 +4,7 @@ import com.smartcampus.model.Sensor;
 import com.smartcampus.storage.DataStore;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -122,6 +123,31 @@ public class SensorResource {
         dataStore.addSensor(existingSensor);
 
         return Response.ok(existingSensor).build();
+    }
+
+    /**
+     * Delete a sensor and remove it from its parent room.
+     */
+    @DELETE
+    @Path("/{sensorId}")
+    public Response deleteSensor(@PathParam("sensorId") String sensorId) {
+        Sensor sensor = dataStore.getSensor(sensorId);
+        if (sensor == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"error\": \"Sensor not found\"}")
+                    .build();
+        }
+
+        // Remove from parent room
+        Room room = dataStore.getRoom(sensor.getRoomId());
+        if (room != null) {
+            room.removeSensorId(sensorId);
+        }
+
+        // Remove from DataStore
+        dataStore.removeSensor(sensorId);
+
+        return Response.noContent().build();
     }
 
 }
