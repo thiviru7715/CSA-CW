@@ -150,4 +150,16 @@ public class SensorResource {
         return Response.noContent().build();
     }
 
+    /**
+     * Sub-resource locator for SensorReadings.
+     */
+    @Path("/{sensorId}/readings")
+    public SensorReadingResource getReadings(@PathParam("sensorId") String sensorId) {
+        Sensor sensor = dataStore.getSensor(sensorId);
+        if (sensor == null) {
+            throw new javax.ws.rs.NotFoundException("{\"error\": \"Sensor not found\"}");
+        }
+        return new SensorReadingResource(sensorId);
+    }
+
 }
