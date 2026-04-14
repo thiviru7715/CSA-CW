@@ -33,4 +33,24 @@ public class SensorReadingResource {
         return javax.ws.rs.core.Response.ok(dataStore.getReadings(sensorId)).build();
     }
 
+    @POST
+    public javax.ws.rs.core.Response addReading(SensorReading reading) {
+        com.smartcampus.model.Sensor sensor = dataStore.getSensor(sensorId);
+        
+        if ("MAINTENANCE".equalsIgnoreCase(sensor.getStatus())) {
+            throw new SensorUnavailableException("Sensor " + sensorId + " is undergoing maintenance and cannot accept readings.");
+        }
+        
+        reading.setId(UUID.randomUUID().toString());
+        reading.setTimestamp(System.currentTimeMillis());
+        
+        dataStore.addReading(sensorId, reading);
+        
+        // Side effect: update sensor's current value
+        sensor.setCurrentValue(reading.getValue());
+        dataStore.addSensor(sensor);
+        
+        return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.CREATED).entity(reading).build();
+    }
+
 }
