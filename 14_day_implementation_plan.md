@@ -282,11 +282,11 @@ POST /sensors/TEMP-001/readings  { "value": 23.5 }
 
 **Branch:** `feature/part5-errors`
 
-- [ ] Create custom exception classes:
+- [x] Create custom exception classes:
   - `RoomNotEmptyException` → thrown when deleting room with sensors
   - `LinkedResourceNotFoundException` → thrown when sensor references non-existent room
   - `SensorUnavailableException` → thrown when posting reading to MAINTENANCE sensor
-- [ ] Create exception mapper classes:
+- [x] Create exception mapper classes:
   - `RoomNotEmptyExceptionMapper` → returns **409 Conflict**
   - `LinkedResourceNotFoundExceptionMapper` → returns **422 Unprocessable Entity**
   - `SensorUnavailableExceptionMapper` → returns **403 Forbidden**
