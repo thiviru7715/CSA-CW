@@ -1,14 +1,12 @@
 package com.smartcampus.exception;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-
-public class SensorUnavailableException extends WebApplicationException {
+/**
+ * Exception thrown when posting a reading to a sensor in MAINTENANCE mode.
+ * This should be mapped to an HTTP 403 Forbidden.
+ */
+public class SensorUnavailableException extends RuntimeException {
 
     public SensorUnavailableException(String message) {
-        super(Response.status(Response.Status.FORBIDDEN)
-                .entity("{\"error\": \"FORBIDDEN\", \"message\": \"" + message + "\"}")
-                .type("application/json")
-                .build());
+        super(message);
     }
 }
