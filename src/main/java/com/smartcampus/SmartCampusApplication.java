@@ -9,6 +9,12 @@ import com.smartcampus.resource.DiscoveryResource;
 import com.smartcampus.resource.RoomResource;
 import com.smartcampus.resource.SensorResource;
 
+import com.smartcampus.mapper.RoomNotEmptyExceptionMapper;
+import com.smartcampus.mapper.LinkedResourceNotFoundMapper;
+import com.smartcampus.mapper.SensorUnavailableMapper;
+import com.smartcampus.mapper.GenericExceptionMapper;
+import com.smartcampus.filter.LoggingFilter;
+
 /**
  * JAX-RS Application configuration class.
  * 
@@ -27,6 +33,15 @@ public class SmartCampusApplication extends Application {
         classes.add(DiscoveryResource.class);
         classes.add(RoomResource.class);
         classes.add(SensorResource.class);
+
+        // Exception mappers
+        classes.add(RoomNotEmptyExceptionMapper.class);
+        classes.add(LinkedResourceNotFoundMapper.class);
+        classes.add(SensorUnavailableMapper.class);
+        classes.add(GenericExceptionMapper.class);
+
+        // Filters
+        classes.add(LoggingFilter.class);
 
         return classes;
     }

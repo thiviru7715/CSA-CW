@@ -303,21 +303,21 @@ POST /sensors/TEMP-001/readings  { "value": 23.5 }
 
 ---
 
-### Day 10 (April 17) — Global Safety Net + Logging Filters
+### ✅ DONE: Day 10 (April 17) — Global Safety Net + Logging Filters
 
 **Branch:** `feature/part5-errors`
 
-- [ ] Implement `GenericExceptionMapper implements ExceptionMapper<Throwable>`
+- [x] Implement `GenericExceptionMapper implements ExceptionMapper<Throwable>`
   - Catches ALL unhandled exceptions
   - Returns **500 Internal Server Error** with generic JSON (no stack trace!)
   - Logs the actual exception server-side for debugging
-- [ ] Create `LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter`
+- [x] Create `LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter`
   - `filter(ContainerRequestContext)` → log HTTP method + URI
   - `filter(ContainerRequestContext, ContainerResponseContext)` → log status code
   - Use `java.util.logging.Logger`
   - Annotate with `@Provider`
-- [ ] Register all mappers and filters (auto-scan with package registration or manual)
-- [ ] **Merge `feature/part5-errors` → `main`**
+- [x] Register all mappers and filters (auto-scan with package registration or manual)
+- [x] **Merge `feature/part5-errors` → `main`**
 
 **Logging Output Example:**
 ```
