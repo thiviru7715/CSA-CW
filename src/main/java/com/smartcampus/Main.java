@@ -50,8 +50,9 @@ public class Main {
 
         LOGGER.log(Level.INFO, "======================================================");
         LOGGER.log(Level.INFO, "Smart Campus API started at: {0}", BASE_URI);
-        LOGGER.log(Level.INFO, "API Base Path: {0}api/v1", BASE_URI);
-        LOGGER.log(Level.INFO, "Discovery Endpoint: {0}api/v1", BASE_URI);
+        LOGGER.log(Level.INFO, "Discovery Endpoint: GET {0}", BASE_URI);
+        LOGGER.log(Level.INFO, "Rooms Endpoint:     GET {0}rooms", BASE_URI);
+        LOGGER.log(Level.INFO, "Sensors Endpoint:   GET {0}sensors", BASE_URI);
         LOGGER.log(Level.INFO, "======================================================");
         LOGGER.log(Level.INFO, "Press Enter to stop the server...");
 
