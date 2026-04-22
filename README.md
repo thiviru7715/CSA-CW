@@ -20,7 +20,7 @@ Key design decisions include:
 
 ## How to Build & Run
 
-### Option 1: Terminal (Maven CLI)
+### Option 1: Terminal (Embedded Grizzly Server)
 
 1. **Clone the project:**
    ```bash
@@ -31,21 +31,35 @@ Key design decisions include:
    ```bash
    mvn clean compile
    ```
-   *(Or use `./mvnw compile` if Maven is not installed globally)*
 3. **Launch the server:**
    ```bash
    mvn exec:java
    ```
 4. **Verify:** You should see `Smart Campus API started at: http://localhost:8080/api/v1/` in your terminal. Press **Enter** to stop the server gracefully.
 
-### Option 2: NetBeans IDE
+### Option 2: NetBeans IDE (Tomcat Server)
 
 1. Open NetBeans.
 2. Select **File > Open Project**.
 3. Navigate to the downloaded `CSA-CW` folder and select it (NetBeans will detect it as a Maven project automatically).
-4. In the Projects explorer pane, right-click on the `CSA-CW` project name and select **Run**.
-   *(Alternatively, expand `Source Packages` > `com.smartcampus` > right-click `Main.java` and select **Run File**)*
-5. The NetBeans Output window will display `Smart Campus API started at: http://localhost:8080/api/v1/`.
+4. In the Projects explorer pane, right-click on the `CSA-CW` project name and select **Run**. NetBeans will automatically build and deploy the application to its configured Tomcat server.
+5. The API will be available at `http://localhost:8080/api/v1/` (assuming Tomcat is running on port 8080).
+
+### Option 3: Standalone Tomcat Server (WAR Deployment)
+
+1. **Package the project:**
+   In your terminal, run the following command to create a `.war` file:
+   ```bash
+   mvn clean package
+   ```
+2. **Locate the WAR file:**
+   Navigate to the `target/` directory inside your project folder. You will find a file named `smart-campus-api-1.0-SNAPSHOT.war` (or simply `ROOT.war` if you renamed it).
+3. **Deploy to Tomcat:**
+   Copy the `.war` file and paste it into the `webapps` folder of your Tomcat installation (e.g., `C:\apache-tomcat-9.0.x\webapps\`).
+4. **Start Tomcat:**
+   Run Tomcat by executing `bin/startup.bat` (Windows) or `bin/startup.sh` (Mac/Linux).
+5. **Verify:**
+   Tomcat will automatically deploy the application. Depending on what you named the `.war` file, the API will be available at `http://localhost:8080/<war-file-name>/api/v1/` (or `http://localhost:8080/api/v1/` if deployed as `ROOT.war`).
 
 ---
 
