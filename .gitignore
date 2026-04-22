@@ -1,5 +1,6 @@
 # Compiled class files
 target/
+dependency-reduced-pom.xml
 
 # IDE files
 .idea/
@@ -10,6 +11,8 @@ target/
 .classpath
 *.swp
 *.swo
+nb-configuration.xml
+nbactions.xml
 
 # OS files
 .DS_Store
